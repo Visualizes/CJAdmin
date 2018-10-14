@@ -1,0 +1,13 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer [mode]="'side'" #drawer mode="side" opened>
+    <button mat-button routerLink="/admin/songs" routerLinkActive="active">Add Songs</button>
+    <button mat-button routerLink="/admin/quality" routerLinkActive="active">Quality Control</button>
+    <button mat-button routerLink="/admin/token" routerLinkActive="active">Generate Token</button>
+  </mat-drawer>
+  <mat-drawer-content class="main-content">
+    <mat-toolbar color="primary"><mat-icon (click)="drawer.toggle()" class="nav-icon">menu</mat-icon>CJ Admin</mat-toolbar>
+    <div class="router-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

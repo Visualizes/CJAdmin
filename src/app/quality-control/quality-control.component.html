@@ -1,0 +1,50 @@
+<div>
+  <div class="select-wrapper" *ngIf="!loading">
+    <mat-form-field>
+      <mat-select placeholder="Select genre" [(ngModel)]="genre" (ngModelChange)="getSongs()">
+        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <table class="table" *ngIf="songs != null && songs.length > 0 && !songsLoading" [dataSource]="songs" mat-table>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let song"> {{song.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let song"> {{ song.title }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let song"> {{ (song.description.length > 36)? (song.description | slice:0:36)+'...':(song.description) }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> URL </th>
+      <td mat-cell *matCellDef="let song"><a target="_blank" [href]="song.permalink_url">{{song.permalink_url}}</a>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef> Rating </th>
+      <td mat-cell  *matCellDef="let song">
+        <mat-radio-group [(ngModel)]="song.rating" (ngModelChange)="updateSong(song)" class="radio-group">
+          <mat-radio-button value="1">1</mat-radio-button>
+          <mat-radio-button value="2">2</mat-radio-button>
+          <mat-radio-button value="3">3</mat-radio-button>
+          <mat-radio-button value="4">4</mat-radio-button>
+          <mat-radio-button value="5">5</mat-radio-button>
+        </mat-radio-group>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<div class="loading" *ngIf="loading || songsLoading">
+  <mat-spinner></mat-spinner>
+</div>

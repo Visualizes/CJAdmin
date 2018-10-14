@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.url {
+  overflow-wrap: break-word;
+}

@@ -1,0 +1,25 @@
+<form class="wrapper" [formGroup]="formGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>API Key</mat-label>
+    <input matInput formControlName="apiKey" placeholder="API key"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Limit</mat-label>
+    <input matInput formControlName="limit" placeholder="Limit"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Offset</mat-label>
+    <input matInput formControlName="offset" placeholder="Offset"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Query</mat-label>
+    <input matInput formControlName="query" placeholder="Query"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>License</mat-label>
+    <input matInput formControlName="license" placeholder="License"/>
+  </mat-form-field>
+  <div class="wrapper__buttons">
+    <button mat-raised-button color="primary" (click)="addSongs()">Submit</button>
+  </div>
+</form>

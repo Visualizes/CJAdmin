@@ -1,0 +1,22 @@
+.main-content {
+  height: 100vh;
+}
+
+.router-wrapper {
+  padding: 1rem;
+}
+
+.active {
+  background: lightgray;
+}
+
+.mat-drawer {
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-icon {
+  cursor: pointer;
+  margin-right: 1rem;
+}

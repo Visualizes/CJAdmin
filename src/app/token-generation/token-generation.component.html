@@ -1,0 +1,32 @@
+<form class="form" [formGroup]="formGroup" (ngSubmit)="generateToken(formDirective)" #formDirective="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>ID</mat-label>
+    <input matInput placeholder="Enter id" formControlName="id"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput placeholder="Enter first name" formControlName="firstName" required/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput placeholder="Enter last name" formControlName="lastName" required/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Genre</mat-label>
+    <input matInput placeholder="Enter genre" formControlName="genre" required/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Start</mat-label>
+    <input matInput type="number" placeholder="Enter start" formControlName="start" required/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>End</mat-label>
+    <input matInput type="number" placeholder="Enter end" formControlName="end" required/>
+  </mat-form-field>
+  <div *ngIf="generated">
+    <span class="url">URL: {{url}}</span>
+  </div>
+  <div class="form__buttons">
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
+</form>
