@@ -34,13 +34,6 @@ export class AppService {
   }
 
   generateToken(body) {
-    let params = new HttpParams();
-    for (const key in body) {
-      if (body.hasOwnProperty(key)) {
-        params = params.append(key, body[key]);
-      }
-    }
-    console.log(params);
     return this.http.put<any>(`${this.apiBase}/token`, body);
   }
 
