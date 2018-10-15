@@ -45,7 +45,7 @@ export class QualityControlComponent implements OnInit {
     }
     this.lastSongID = song.id;
     this.timers[song.id] = timer(1500).subscribe(() => {
-      this.appService.updateSong(song, 'vlog').subscribe(() => {
+      this.appService.updateSong(song, this.genre).subscribe(() => {
         delete this.timers[song.id];
       });
     });
