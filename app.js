@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 if (fs.existsSync('./dist')) {
-  app.use(express.static(path.join(__dirname, 'dist/CoolJamm/')));
+  app.use(express.static(path.join(__dirname, 'dist/CJAdmin/')));
 }
 
 app.use(function (req, res, next) {
