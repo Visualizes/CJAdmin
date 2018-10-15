@@ -54,7 +54,6 @@ export class TokenGenerationComponent implements OnInit {
         this.snackBar.open('Token generated!', 'Close', {
           duration: 2000
         });
-        console.log(token);
         this.url = `${document.location.protocol}//${window.location.hostname}:3000?token=${token}`;
         formDirective.resetForm();
         this.formGroup.reset();
@@ -78,6 +77,7 @@ export class TokenGenerationComponent implements OnInit {
 
   fillNames(option) {
     this.formGroup.patchValue({
+      id: option.id,
       firstName: option.first_name,
       lastName: option.last_name
     })
