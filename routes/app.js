@@ -28,17 +28,41 @@ router.get('/', function (req, res, next) {
   res.render('index.html');
 });
 
-router.get('/token', function (req, res, next) {
-  const { id, firstName, lastName, genre, start, end, rating } = req.query;
-  res.json(jwt.sign({
-    id: id || uuid(),
+router.put('/token', function (req, res, next) {
+  const { id, firstName, lastName, genre, start, end, rating } = req.body;
+  const user = {};
+  const _id = id || uuid();
+  user[_id] = {
     first_name: firstName,
-    last_name: lastName,
-    genre: genre,
-    start: start,
-    end: end,
-    rating: rating
-  }, process.env.JWT_TOKEN))
+    last_name: lastName
+  };
+  firebase.database().ref('/users').update(user).then(() => {
+    res.json(jwt.sign({
+      id: _id,
+      first_name: firstName,
+      last_name: lastName,
+      genre: genre,
+      start: start,
+      end: end,
+      rating: rating
+    }, process.env.JWT_TOKEN));
+  });
+});
+
+router.get('/users', function (req, res, next) {
+  firebase.database().ref(`/users`).once('value', users => {
+    const records = [];
+    users.forEach(function (user) {
+      // get the key and data from the snapshot
+      const childKey = user.key;
+      const childData = user.val();
+      // We set the Algolia objectID as the Firebase .key
+      childData.id = childKey;
+      // Add object for indexing
+      records.push(childData);
+    });
+    res.json(records);
+  });
 });
 
 router.get('/queries', function (req, res, next) {

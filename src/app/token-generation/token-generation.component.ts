@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../app.service';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-token-generation',
@@ -12,11 +15,28 @@ export class TokenGenerationComponent implements OnInit {
   public formGroup: FormGroup;
   public generated = false;
   public url;
+  private users;
+  public ratings = [
+    1, 2, 3, 4, 5
+  ];
+  myControl = new FormControl();
+  filteredOptions: Observable<any[]>;
 
   constructor(private _fb: FormBuilder,
-              private appService: AppService) { }
+              private appService: AppService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.appService.getUsers().subscribe(users => {
+      this.users = users;
+      console.log(users);
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+    });
+
     this.formGroup = this._fb.group({
       id: [''],
       firstName: ['', Validators.required],
@@ -31,6 +51,9 @@ export class TokenGenerationComponent implements OnInit {
   generateToken(formDirective) {
     if (this.formGroup.valid) {
       this.appService.generateToken(this.formGroup.value).subscribe((token) => {
+        this.snackBar.open('Token generated!', 'Close', {
+          duration: 2000
+        });
         console.log(token);
         this.url = `${document.location.protocol}//${window.location.hostname}:3000?token=${token}`;
         formDirective.resetForm();
@@ -42,6 +65,22 @@ export class TokenGenerationComponent implements OnInit {
 
   getURL() {
     return `${document.location.protocol}//${window.location.hostname}:3000`;
+  }
+
+  private _filter(value: any): any[] {
+    const filterValue = value.toLowerCase();
+
+    return this.users.filter(option => {
+      const name = `${option.id} (${option.first_name} ${option.last_name})`;
+      return name.toLowerCase().includes(filterValue)
+    });
+  }
+
+  fillNames(option) {
+    this.formGroup.patchValue({
+      firstName: option.first_name,
+      lastName: option.last_name
+    })
   }
 
 }

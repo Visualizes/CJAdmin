@@ -1,7 +1,12 @@
 <form class="form" [formGroup]="formGroup" (ngSubmit)="generateToken(formDirective)" #formDirective="ngForm">
   <mat-form-field appearance="outline">
     <mat-label>ID</mat-label>
-    <input matInput placeholder="Enter id" formControlName="id"/>
+    <input matInput placeholder="Enter id" formControlName="id" [formControl]="myControl" [matAutocomplete]="auto"/>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id" (click)="fillNames(option)">
+        {{option.id}} ({{option.first_name}} {{option.last_name}})
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>First Name</mat-label>
@@ -25,7 +30,9 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Rating</mat-label>
-    <input matInput type="number" placeholder="Enter minimum rating" formControlName="rating" required/>
+    <mat-select formControlName="rating" placeholder="Select rating" required>
+      <mat-option *ngFor="let rating of ratings" [value]="rating">{{rating}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <div *ngIf="generated">
     <span class="url">URL: {{url}}</span>

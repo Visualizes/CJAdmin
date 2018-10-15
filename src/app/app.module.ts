@@ -8,7 +8,9 @@ import {Routing} from './app.routing';
 import { AddSoundcloudSongsComponent } from './add-soundcloud-songs/add-soundcloud-songs.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
+  MatAutocompleteModule,
   MatButtonModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule,
+  MatSnackBarModule,
   MatTableModule, MatToolbarModule
 } from '@angular/material';
 import {AppService} from './app.service';
@@ -35,6 +37,8 @@ import { TokenGenerationComponent } from './token-generation/token-generation.co
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     Routing

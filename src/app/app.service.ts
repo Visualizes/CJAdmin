@@ -41,7 +41,11 @@ export class AppService {
       }
     }
     console.log(params);
-    return this.http.get<any>(`${this.apiBase}/token`, { params: params });
+    return this.http.put<any>(`${this.apiBase}/token`, body);
+  }
+
+  getUsers() {
+    return this.http.get<any>(`${this.apiBase}/users`);
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as env from '../../../secrets/env.json';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-soundcloud-songs',
@@ -14,7 +15,8 @@ export class AddSoundcloudSongsComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,10 @@ export class AddSoundcloudSongsComponent implements OnInit {
   }
 
   addSongs() {
-    this.appService.addSongs(this.formGroup.value).subscribe();
+    this.appService.addSongs(this.formGroup.value).subscribe(() => {
+      this.snackBar.open('Songs added!', 'Close', {
+        duration: 2000
+      });
+    });
   }
 }
