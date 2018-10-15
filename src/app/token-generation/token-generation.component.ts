@@ -27,6 +27,9 @@ export class TokenGenerationComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    if (localStorage.getItem('rating') == null) {
+      localStorage.setItem('rating', '3');
+    }
     this.appService.getUsers().subscribe(users => {
       this.users = users;
       console.log(users);
@@ -44,7 +47,7 @@ export class TokenGenerationComponent implements OnInit {
       genre: ['', Validators.required],
       start: ['', Validators.required],
       end: ['', Validators.required],
-      rating: ['', Validators.required]
+      rating: [Number(localStorage.getItem('rating')), Validators.required]
     })
   }
 
@@ -81,6 +84,10 @@ export class TokenGenerationComponent implements OnInit {
       firstName: option.first_name,
       lastName: option.last_name
     })
+  }
+
+  cacheRating(rating) {
+    localStorage.setItem('rating', rating.toString());
   }
 
 }

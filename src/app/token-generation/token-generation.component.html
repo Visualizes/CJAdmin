@@ -31,7 +31,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Rating</mat-label>
     <mat-select formControlName="rating" placeholder="Select rating" required>
-      <mat-option *ngFor="let rating of ratings" [value]="rating">{{rating}}</mat-option>
+      <mat-option *ngFor="let rating of ratings" [value]="rating" (click)="cacheRating(rating)">{{rating}}</mat-option>
     </mat-select>
   </mat-form-field>
   <div *ngIf="generated">
