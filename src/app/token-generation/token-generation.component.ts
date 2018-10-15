@@ -23,7 +23,8 @@ export class TokenGenerationComponent implements OnInit {
       lastName: ['', Validators.required],
       genre: ['', Validators.required],
       start: ['', Validators.required],
-      end: ['', Validators.required]
+      end: ['', Validators.required],
+      rating: ['', Validators.required]
     })
   }
 

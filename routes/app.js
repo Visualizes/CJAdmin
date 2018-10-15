@@ -16,6 +16,7 @@ const config = {
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
 };
 firebase.initializeApp(config);
+firebase.auth().signInWithEmailAndPassword(process.env.FIREBASE_AUTH_EMAIL, process.env.FIREBASE_AUTH_PASSWORD);
 
 const algolia = algoliasearch(
   process.env.ALGOLIA_APP_ID,
@@ -28,14 +29,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/token', function (req, res, next) {
-  const { id, firstName, lastName, genre, start, end } = req.query;
+  const { id, firstName, lastName, genre, start, end, rating } = req.query;
   res.json(jwt.sign({
-    id: id || uuid,
+    id: id || uuid(),
     first_name: firstName,
     last_name: lastName,
     genre: genre,
     start: start,
-    end: end
+    end: end,
+    rating: rating
   }, process.env.JWT_TOKEN))
 });
 
