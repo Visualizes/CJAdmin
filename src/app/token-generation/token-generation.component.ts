@@ -60,6 +60,9 @@ export class TokenGenerationComponent implements OnInit {
         this.url = `${document.location.protocol}//${window.location.hostname}:3000?token=${token}`;
         formDirective.resetForm();
         this.formGroup.reset();
+        this.formGroup.patchValue({
+          rating: Number(localStorage.getItem('rating'))
+      });
         this.generated = true;
       });
     }
